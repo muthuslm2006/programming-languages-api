@@ -4,6 +4,11 @@ const router = express.Router();
 const login1=require('../services/login');
 
 
+// const mysql = require('mysql');
+// // const express = require('express');
+// const session = require('express-session');
+// const path = require('path');
+
 
 /*login get*/
 
