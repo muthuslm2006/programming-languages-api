@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const programmingLanguagesRouter = require("./routes/programmingLanguages");
+const LoginPageRouther=require("./routes/login");
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -9,9 +10,12 @@ app.use(
   })
 );
 app.get("/", (req, res) => {
-  res.json({ message: "ok" });
+  res.json({ message: "Connected" });
 });
-app.use("/programming-languages", programmingLanguagesRouter);
+
+
+// app.use("/programming-languages", programmingLanguagesRouter);
+app.use("/loginpage",LoginPageRouther)
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

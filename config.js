@@ -9,7 +9,8 @@ const config = {
     //   user: "root",
     //   password: "",
     //   database: "stashook",
-    // },
-    // listPerPage: 10,
+    },
+    listPerPage: 10,
   };
-  module.exports = config;
+  module.exports=config;
+  
