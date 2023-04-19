@@ -3,6 +3,15 @@ const app = express();
 const port = 3000;
 const programmingLanguagesRouter = require("./routes/programmingLanguages");
 const LoginPageRouther=require("./routes/login");
+const authlogin=require("./auth");
+
+// const connection = mysql.createConnection({
+// 	host     : 'localhost',
+// 	user     : 'root',
+// 	password : 'password',
+// 	database : 'stashook'
+// });
+
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -16,6 +25,11 @@ app.get("/", (req, res) => {
 
 app.use("/programming-languages", programmingLanguagesRouter);
 app.use("/loginpage",LoginPageRouther)
+app.use("/register",LoginPageRouther)
+// app.use("/auth",LoginPageRouther)
+
+
+app.use(express.json());
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -23,39 +37,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
-app.listen(port, () => {
+
+app.listen(3000, () => {
   console.log(`Example app listening at http://localhost:${port}`);
-});
-
-
-
-//login check
-
-// http://localhost:3000/auth
-app.post('/auth', function(request, response) {
-	// Capture the input fields
-	let username = request.body.username;
-	let password = request.body.password;
-	// Ensure the input fields exists and are not empty
-	if (username && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM login WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			// If there is an issue with the query, output the error
-			if (error) throw error;
-			// If the account exists
-			if (results.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = username;
-				// Redirect to home page
-				response.send('Welcome Your Username & Password is correct');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-});
+}); 

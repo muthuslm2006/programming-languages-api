@@ -1,46 +1,39 @@
-const express = require('express');
-const router = express.Router();
-
-const login=require('../services/login');
-
-
-// const mysql = require('mysql');
-// // const express = require('express');
-// const session = require('express-session');
-// const path = require('path');
-
-
-/*login get*/
-
-router.get('/', async function(req, res, next) {
-  try {
-    res.json(await login.getMultiple(req.query.page));
-    // res.json(await login.get(req));
-    // res.json("Cone");
-  } catch (err) {
-    console.error(`Error while getting login `, err.message);
-    next(err);
-  }
+const express = require("express");
+const app = express();
+const port = 3000;
+const programmingLanguagesRouter = require("./routes/programmingLanguages");
+const LoginPageRouther=require("./routes/login");
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.get("/", (req, res) => {
+  res.json({ message: "Connected" });
 });
+
+
+app.use("/programming-languages", programmingLanguagesRouter);
+app.use("/loginpage",LoginPageRouther)
+app.use("/register",LoginPageRouther)
+
+app.use(express.json());
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({ message: err.message });
+  return;
+});
+
+
 
 
 //login check
 
-
-
-
-// router.post('/register').post((req,res)=>{
-  router.post('/register',async function(req, res, next) {
-const {usernmae, password}=req.body;
-
-const newUser=new login.create({usernmae,password});
-newUser.save()
-.then(()=> res.json('user addes'))
-.catch(err=>res.status(400).json('error:'+err))
-});
-
 // http://localhost:3000/auth
-router.post('/auth', function auth(request, response) {
+app.post('/auth', function(request, response) {
 	// Capture the input fields
 	let username = request.body.username;
 	let password = request.body.password;
@@ -70,4 +63,6 @@ router.post('/auth', function auth(request, response) {
 });
 
 
-module.exports = router;
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+}); 

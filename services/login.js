@@ -18,6 +18,29 @@ async function getMultiple(page = 1){
     meta
   }
 }
+
+async function create(req,res){
+  const result = await db.query(
+    `INSERT INTO login 
+    (username, password) 
+    VALUES 
+    (${login.username}, ${login.password})`
+  );
+
+  let message = 'Error in creating programming language';
+
+  if (result.affectedRows) {
+    message = 'Programming language created successfully';
+  }
+
+  return {message};
+}
+
+
+
+
+
 module.exports = {
-  getMultiple
+  getMultiple,
+  create
 }
