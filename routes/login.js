@@ -30,14 +30,70 @@ router.get('/', async function(req, res, next) {
 
 
 // router.post('/register').post((req,res)=>{
-  router.post('/register',async function(req, res, next) {
-const {usernmae, password}=req.body;
+//   router.post('/register',async function(req, res, next) {
+// const {usernmae, password}=req.body;
 
-const newUser=new login.create({usernmae,password});
-newUser.save()
-.then(()=> res.json('user addes'))
-.catch(err=>res.status(400).json('error:'+err))
-});
+// const newUser=new login.create({usernmae,password});
+// newUser.save()
+// .then(()=> res.json('user addes'))
+// .catch(err=>res.status(400).json('error:'+err))
+// })
+// });
+
+
+
+
+// router.post("/register",(req,res)=>{
+//     console.log(req.body);
+//   /*
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const password = req.body.password;
+//   const confirm_password = req.body.confirm_password;
+//   console.log(name);
+//   console.log(email);
+//     //res.send("Form Submitted");
+//   */
+//   const { username, password,  } = req.body;
+//   db.query(
+//     "select username from login where username=?",
+//     [username],
+//     async (error, result) => {
+//       if (error) {
+//         confirm.log(error);
+//       }
+
+//       if (result.length > 0) {
+//         return res.render("register", {
+//           msg: "user name id already Taken",
+//           msg_type: "error",
+//         });
+//       } 
+      
+//       let hashedPassword = await bcrypt.hash(password, 8);
+//       //console.log(hashedPassword);
+
+//       db.query(
+//         "insert into login set ?",
+//         { username: username,  password: hashedPassword },
+//         (error, result) => {
+//           if (error) {
+//             console.log(error);
+//           } else {
+//             //console.log(result);
+//             return res.render("register", {
+//               msg: "login Registration Success",
+//               msg_type: "good",
+//             });
+//           }
+//         }
+//       );
+//     }
+//   );
+// }
+
+  
+// );
 
 // http://localhost:3000/auth
 router.post('/auth', function auth(request, response) {
